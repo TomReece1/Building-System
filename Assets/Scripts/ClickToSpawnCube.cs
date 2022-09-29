@@ -28,9 +28,9 @@ public class ClickToSpawnCube : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && firstClick) firstClick = false;
-        else
-        {
+        //if (Input.GetMouseButtonDown(0) && firstClick) firstClick = false;
+        //else
+        //{
             if (Input.GetKeyDown("m")) ToggleMode();
             if (Input.GetKeyDown("g")) ToggleGrid();
             if (buildMode)
@@ -46,7 +46,7 @@ public class ClickToSpawnCube : MonoBehaviour
 
                 ShowHighlighted();
             }
-        }
+        //}
     }
 
     void SpawnShape(string shape)
