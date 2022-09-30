@@ -37,18 +37,21 @@ public class ClickToSpawnCube : MonoBehaviour
 
     public int SelectedShapeNum = 1;
 
+    public GameController GameController;
+
     private void Awake()
     {
         EventSystem = FindObjectOfType<EventSystem>();
         CursorCube = Instantiate(CursorCubePrefab);
         Editor = GameObject.Find("Editor").GetComponent<Editor>();
+        GameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0) && firstClick) firstClick = false;
-        //else
-        //{
+        if (!GameController.playMode) 
+
+        {
             if (Input.GetKeyDown("m")) ToggleMode();
             if (Input.GetKeyDown("g")) ToggleGrid();
 
@@ -89,9 +92,6 @@ public class ClickToSpawnCube : MonoBehaviour
 
         if (buildMode)
             {
-                //if (Input.GetMouseButtonDown(0)) SpawnShape("Cube");
-                //if (Input.GetMouseButtonDown(1)) SpawnShape("Ramp");
-
                 if (Input.GetMouseButtonDown(0)) SpawnShape(SelectedShapeNum);
 
             ShowCursor();
@@ -102,12 +102,7 @@ public class ClickToSpawnCube : MonoBehaviour
 
                 ShowHighlighted();
             }
-        //}
-    }
-
-    void SelectCube()
-    {
-
+        }
     }
 
     void SpawnShape(int shapeNum)
