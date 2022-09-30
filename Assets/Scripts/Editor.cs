@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 public class Editor : MonoBehaviour
 {
+    public Material SelectedCursorMaterial;
+
 
     public GameObject EditInstructions;
     public ClickToSpawnCube ClickToSpawnCube;
@@ -66,6 +68,8 @@ public class Editor : MonoBehaviour
             && !EventSystem.current.IsPointerOverGameObject())
         {
             SelectedObject = hit.transform.gameObject;
+            ClickToSpawnCube.CursorCube.GetComponent<Renderer>().material = SelectedCursorMaterial;
+
         }
     }
 

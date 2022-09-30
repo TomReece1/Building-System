@@ -12,6 +12,12 @@ public class ClickToSpawnCube : MonoBehaviour
     public GameObject CubePrefab;
     public GameObject RampPrefab;
     public GameObject CursorCubePrefab;
+    public Material EditCursorMaterial;
+
+    public GameObject BuildTickImage;
+    public GameObject EditTickImage;
+    public GameObject GridTickImage;
+    
 
     public GameObject CursorCube;
 
@@ -103,13 +109,26 @@ public class ClickToSpawnCube : MonoBehaviour
     {
         Destroy(CursorCube);
         CursorCube = Instantiate(CursorCubePrefab);
+    }
 
+    void MakeEditCursor()
+    {
+        CursorCube.GetComponent<Renderer>().material = EditCursorMaterial;
+        
     }
 
     public void ToggleGrid()
     {
-        if (useGrid) useGrid = false;
-        else useGrid = true;
+        if (useGrid)
+        {
+            useGrid = false;
+            GridTickImage.SetActive(false);
+        }
+        else
+        {
+            useGrid = true;
+            GridTickImage.SetActive(true);
+        }
     }
 
     public void ToggleMode()
@@ -118,12 +137,17 @@ public class ClickToSpawnCube : MonoBehaviour
         {
             buildMode = false;
             Editor.DisplayEditInstructions();
+            MakeEditCursor();
+            EditTickImage.SetActive(true);
+            BuildTickImage.SetActive(false);
         }
         else
         {
             buildMode = true;
             Editor.HideEditInstructions();
             ResetCursor();
+            EditTickImage.SetActive(false);
+            BuildTickImage.SetActive(true);
         }
     }
 
