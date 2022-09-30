@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
 
     public Camera MainCamera;
     public GameObject Player;
+    
 
     public ClickToSpawnCube ClickToSpawnCube;
 
@@ -25,6 +26,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene(0);
 
         if (Input.GetKeyDown("return"))
@@ -42,5 +44,7 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+
 
 }
