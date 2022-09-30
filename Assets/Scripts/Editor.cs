@@ -15,15 +15,18 @@ public class Editor : MonoBehaviour
 
     public GameObject SelectedObject;
 
+    public GameController GameController;
+
     void Awake()
     {
         ClickToSpawnCube = GameObject.Find("GameController").GetComponent<ClickToSpawnCube>();
         AudioSource = GetComponent<AudioSource>();
+        GameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     void Update()
     {
-        if (!ClickToSpawnCube.buildMode)
+        if (!ClickToSpawnCube.buildMode && !GameController.playMode)
         {
             if (Input.GetKey("t"))
             {
