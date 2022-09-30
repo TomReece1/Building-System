@@ -11,19 +11,31 @@ public class ClickToSpawnCube : MonoBehaviour
 
     public GameObject CubePrefab;
     public GameObject RampPrefab;
+    public GameObject TreePrefab;
+    public GameObject BridgePrefab;
+    public GameObject ArchPrefab;
+
     public GameObject CursorCubePrefab;
     public Material EditCursorMaterial;
 
     public GameObject BuildTickImage;
     public GameObject EditTickImage;
     public GameObject GridTickImage;
-    
+
+    public GameObject TickImage1;
+    public GameObject TickImage2;
+    public GameObject TickImage3;
+    public GameObject TickImage4;
+    public GameObject TickImage5;
+
 
     public GameObject CursorCube;
 
     public bool useGrid = true;
     public bool buildMode = true;
     public bool firstClick = true;
+
+    public int SelectedShapeNum = 1;
 
     private void Awake()
     {
@@ -39,12 +51,50 @@ public class ClickToSpawnCube : MonoBehaviour
         //{
             if (Input.GetKeyDown("m")) ToggleMode();
             if (Input.GetKeyDown("g")) ToggleGrid();
-            if (buildMode)
-            {
-                if (Input.GetMouseButtonDown(0)) SpawnShape("Cube");
-                if (Input.GetMouseButtonDown(1)) SpawnShape("Ramp");
 
-                ShowCursor();
+        if (Input.GetKeyDown("1") || Input.GetKeyDown("2") || Input.GetKeyDown("3") || Input.GetKeyDown("4") || Input.GetKeyDown("5"))
+        {
+            TickImage1.SetActive(false);
+            TickImage2.SetActive(false);
+            TickImage3.SetActive(false);
+            TickImage4.SetActive(false);
+            TickImage5.SetActive(false);
+        }
+
+            if (Input.GetKeyDown("1"))
+        {
+            SelectedShapeNum = 1;
+            TickImage1.SetActive(true);
+        }
+        if (Input.GetKeyDown("2"))
+        {
+            SelectedShapeNum = 2;
+            TickImage2.SetActive(true);
+        }
+        if (Input.GetKeyDown("3"))
+        {
+            SelectedShapeNum = 3;
+            TickImage3.SetActive(true);
+        }
+        if (Input.GetKeyDown("4"))
+        {
+            SelectedShapeNum = 4;
+            TickImage4.SetActive(true);
+        }
+        if (Input.GetKeyDown("5"))
+        {
+            SelectedShapeNum = 5;
+            TickImage5.SetActive(true);
+        }
+
+        if (buildMode)
+            {
+                //if (Input.GetMouseButtonDown(0)) SpawnShape("Cube");
+                //if (Input.GetMouseButtonDown(1)) SpawnShape("Ramp");
+
+                if (Input.GetMouseButtonDown(0)) SpawnShape(SelectedShapeNum);
+
+            ShowCursor();
             }
             else
             {
@@ -55,7 +105,12 @@ public class ClickToSpawnCube : MonoBehaviour
         //}
     }
 
-    void SpawnShape(string shape)
+    void SelectCube()
+    {
+
+    }
+
+    void SpawnShape(int shapeNum)
     {
         Camera cameraComponent = GameObject.Find("Main Camera").GetComponent<Camera>();
         Ray ray = cameraComponent.ScreenPointToRay(Input.mousePosition);
@@ -66,8 +121,11 @@ public class ClickToSpawnCube : MonoBehaviour
         {
             gridVector = Vector3Int.RoundToInt(hit.point);
             GameObject shapeToSpawn = null;
-            if (shape == "Cube") shapeToSpawn = Instantiate(CubePrefab);
-            if (shape == "Ramp") shapeToSpawn = Instantiate(RampPrefab);
+            if (shapeNum == 1) shapeToSpawn = Instantiate(CubePrefab);
+            if (shapeNum == 2) shapeToSpawn = Instantiate(RampPrefab);
+            if (shapeNum == 3) shapeToSpawn = Instantiate(TreePrefab);
+            if (shapeNum == 4) shapeToSpawn = Instantiate(BridgePrefab);
+            if (shapeNum == 5) shapeToSpawn = Instantiate(ArchPrefab);
             if (useGrid) shapeToSpawn.transform.position = gridVector;
             else shapeToSpawn.transform.position = hit.point;
         }
